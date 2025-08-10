@@ -33,18 +33,18 @@
 // console.log([...name].length);
 
 
-let array = [{ name: "sand", age: 25, profession: "frontend" }, { name: "sam", age: 35, profession: "backend" },
-{ name: "ajay", age: 45, profession: "fullstack" },
-{ name: "sam", age: 25, profession: "UI/Ux" }];
+// let array = [{ name: "sand", age: 25, profession: "frontend" }, { name: "sam", age: 35, profession: "backend" },
+// { name: "ajay", age: 45, profession: "fullstack" },
+// { name: "sam", age: 25, profession: "UI/Ux" }];
 
-function names(datas){
-  for (let data of datas) {
-    if (data.name === "ajay") {
-      console.log(data);
-    } 
-  }
-}
-names(array);
+// function names(datas){
+//   for (let data of datas) {
+//     if (data.name === "ajay") {
+//       console.log(data);
+//     } 
+//   }
+// }
+// names(array);
 
 // function phones(){
 
@@ -71,3 +71,19 @@ names(array);
 
 // console.log(sum(1, 2, 3, 4)); // Output: 10
 
+
+
+var phone = [{Mobilename: "apple", series: "pro" }, 
+  { Mobilename: "Redmi", series: "note" }, 
+  { Mobilename: "oppo", series: "note" }, 
+  { Mobilename: "Realme", series: "note" }]
+
+function phones(...models) {
+  
+  for (let mobile of models) {
+    if (mobile.Mobilename ==="apple"){
+      console.log(mobile);
+    }
+}
+}
+phones(...phone)
