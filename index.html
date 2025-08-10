@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation
+    </title>
+    <style>
+        nav {
+            width: 100vw;
+            height: 80px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .items ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .items li {
+            padding: 0 0 0 30px;
+            font-size: larger;
+        }
+
+        .items li a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .items a:hover {
+            color: blue;
+            transition-duration: 0.4s;
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+
+<body>
+   <input type="text" name="" id="data" placeholder="Enter your data">
+    <script>
+        // const paragarph=document.getElementById("para");
+        // paragarph.textContent="Hai Surya!";
+        // console.log(paragarph);
+        // const content = document.getElementsByClassName("para-2");
+        // for (let i = 0; i < content.length; i++){
+        //     content[i].textContent = "Your a Developer " + (i + 1);
+        // }
+        // const button = document.getElementById("btn");
+        // button.style.backgroundColor="blue";
+        let array = [
+  { name: "sand", age: 25, profession: "frontend" },
+  { name: "sam", age: 35, profession: "backend" },
+  { name: "ajay", age: 45, profession: "fullstack" }
+];
+
+function names(datas) {
+  for (let data of datas) {
+    if (data.age >= 35) {
+      console.log(data);
+    }
+  }
+}
+names(array);
+
+        
+    </script>
+</body>
+
+</html>
