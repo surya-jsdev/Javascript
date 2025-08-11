@@ -19,7 +19,13 @@
 //     console.log(c);
 // }
 
-var a=1;
- a=2;
-console.log(a);
-
+// var a=1;
+//  a=2;
+// console.log(a);
+  {
+ let c=20;
+ let a=10;
+ console.log(c,a);
+  }
+  
+  

@@ -73,17 +73,21 @@
 
 
 
-var phone = [{Mobilename: "apple", series: "pro" }, 
-  { Mobilename: "Redmi", series: "note" }, 
-  { Mobilename: "oppo", series: "note" }, 
-  { Mobilename: "Realme", series: "note" }]
+// var phone = [{Mobilename: "apple", series: "pro" }, 
+//   { Mobilename: "Redmi", series: "note" }, 
+//   { Mobilename: "oppo", series: "note" }, 
+//   { Mobilename: "Realme", series: "note" }]
 
-function phones(...models) {
+// function phones(...models) {
   
-  for (let mobile of models) {
-    if (mobile.Mobilename ==="apple"){
-      console.log(mobile);
-    }
-}
-}
-phones(...phone)
+//   for (let mobile of models) {
+//     if (mobile.Mobilename ==="apple"){
+//       console.log(mobile);
+//     }
+// }
+// }
+// phones(...phone)
+
+
+let array=["BMW","Audi","polo"]
+console.log([...array]);
