@@ -4,7 +4,6 @@
 //     // var Name = "Surya";
 //     // console.log(Name);
 //     console.log(...name);
-
 // }
 // add("vicky",23,"Dvelpoer")
 
@@ -18,22 +17,10 @@
 //         console.log(message + "World!");
 //     }
 //     innerFunction();
-    
+
 // }
 // outerFunction(); 
 
-function createCounter() {
-        let count = 0;
-  
-        function increment() {
-          count++;
-          console.log(count);
-        }
-  
-        return increment;
-      }
-  
-      const counter = createCounter();
-      counter(); 
-      counter(); 
-      
+
+// const currentdate = new Date();
+// console.log(currentdate);

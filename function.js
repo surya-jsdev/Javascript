@@ -79,7 +79,7 @@
 //   { Mobilename: "Realme", series: "note" }]
 
 // function phones(...models) {
-  
+
 //   for (let mobile of models) {
 //     if (mobile.Mobilename ==="apple"){
 //       console.log(mobile);
@@ -89,5 +89,60 @@
 // phones(...phone)
 
 
-let array=["BMW","Audi","polo"]
-console.log([...array]);
+// let array=["BMW","Audi","polo"]
+// console.log([...array]);
+
+
+// const add=(a,b)=>{
+//    console.log(a+b);
+// }
+// add(2,5)
+
+// let a=10;
+// let b=20;
+
+// function add(){
+//     console.log(a+b);
+// }
+// add()
+
+// var factor="Vijay";
+// var fplayer="Dhoni";
+// var fmovie="Leo";
+
+// function favourite(){
+//     console.log("Favourite Actor:"+factor);
+//     console.log("Favourite player:"+fplayer);
+//     console.log("Favourite movie:"+fmovie);
+
+// }
+// favourite()
+
+// function area(length, breadth) {
+
+//     var area = length * breadth;
+//     console.log("Area is:" + area);
+ 
+// }
+// area(20, 20)
+
+// function add(a,b){
+
+//     return a+b;
+   
+// }
+//  var c=add(5,5);
+//  console.log(c);
+ 
+      function showMessage() {
+          var  message = "Hello, World!";
+        if (true) {
+          // Function scope
+        var mess=message;
+          console.log(mess);
+        }
+      }
+  
+      showMessage(); // Output: Hello, World!
+
+      
