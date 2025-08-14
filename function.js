@@ -134,15 +134,26 @@
 //  var c=add(5,5);
 //  console.log(c);
  
-      function showMessage() {
-          var  message = "Hello, World!";
-        if (true) {
-          // Function scope
-        var mess=message;
-          console.log(mess);
-        }
-      }
+      // function showMessage() {
+      //     var  message = "Hello, World!";
+      //   if (true) {
+      //     // Function scope
+      //   var mess=message;
+      //     console.log(mess);
+      //   }
+      // }
   
-      showMessage(); // Output: Hello, World!
+      // showMessage(); // Output: Hello, World!
 
+      // const time=new Date();
+      //   console.log(time);
+
+      function add(){
+        console.log(5+5);
+        
+      }
+      add()
+       function sub(){
+        console.log
+       }
       
