@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #btn{
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: black;
+            color: white;
+            margin: 50px 0;
+        }
+        #btn:hover{
+            background-color: rgba(0, 140, 255, 0.54);
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Random image</h2>
+    <img src="" alt="randomImage" id="randomImage" style="width: 250px;height: 250px;">
+    <button id="btn">click To get random Iamge</button>
+    <script>
+        document.getElementById("btn").addEventListener("click",function(){
+            fetch("https://dog.ceo/api/breeds/image/random")
+            .then(res =>res.json())
+            .then((image)=>{
+                document.getElementById('randomImage').src=image.message;
+            })
+
+            .catch((error)=>{
+                console.log("Error fetching image:", error);
+                
+            })
+        })
+    </script>
+</body>
+</html>

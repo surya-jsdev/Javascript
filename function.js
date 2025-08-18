@@ -150,10 +150,11 @@
 
       function add(){
         console.log(5+5);
-        
       }
       add()
        function sub(){
         console.log
        }
-      
+      //  const fun=sub();
+      //  console.log(fun);
+       

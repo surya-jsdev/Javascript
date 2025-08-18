@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Image Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      text-align: center;
+    }
+    img {
+      max-width: 300px;
+      height: 300px;
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h2>Random Dog Image Generator</h2>
+  <img id="randomImage" src="" alt="Random Dog Image" />
+    <button id="fetchButton">Get Random Image</button>
+  <script>
+    document.getElementById("fetchButton").addEventListener("click", function () {
+      fetch("https://dog.ceo/api/breeds/image/random")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("randomImage").src = data.message;
+        })
+        .catch((error) => {
+          console.log("Error fetching image:", error);
+        });
+    });
+    // document.getElementById("fetchButton").addEventListener("click",function(){
+    //     fetch("https://dog.ceo/api/breeds/image/random")
+    //     .then((res)=>res.json())
+    //     .then((data)=>{
+    //         document.getElementById("randomImage").src=data.message;
+    //     })
+    //     .catch((error)=>{
+    //         console.log("error fetching image:",error);
+            
+    //     });
+    
+    // });
+    
+  </script>
+  
+</body>
+</html>
+  

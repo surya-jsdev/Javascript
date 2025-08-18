@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button id="fetchCars">Get Cars</button>
+    <div id="carList" style="width: 100%; display: flex;flex-wrap: wrap;gap:10px" >
+        
+    </div>
+
+    <script>
+      document.getElementById("fetchCars").addEventListener("click", function () {
+        fetch("https://68a2c221c5a31eb7bb1dab99.mockapi.io/api/cards/carimage")
+          .then((res) => res.json())
+          .then((cars) => {
+            let carList = document.getElementById("carList");
+            carList.innerHTML = "";
+            cars.forEach(car => {
+              carList.innerHTML += `
+                <div>
+                <h3>${car.name}</h3>
+                  <img src="${car.image}" width="300"/>
+                  <p>Price: $${car.price}</p>
+                </div>
+               
+              `;
+            });
+          })
+          .catch(err => console.log("Error fetching cars:", err));
+      });
+    </script>
+  </body>
+</html>
