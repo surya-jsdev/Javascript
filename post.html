@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch API POST Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    input {
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .response {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #28a745;
+      border-radius: 5px;
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .error {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #dc3545;
+      border-radius: 5px;
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Fetch API - POST Example</h2>
+    <form id="taskForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" required>
+      <button type="submit">Create Task</button>
+    </form>
+    <div id="responseMessage" class="response" style="display:none;"></div>
+    <div id="errorMessage" class="error" style="display:none;"></div>
+  </div>
+
+  <script>
+    document.getElementById("taskForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+
+      const newTask = {
+        name: name,
+        email: email,
+        phone: phone,
+       
+      };
+
+      fetch("https://68a33ddac5a31eb7bb1f8caa.mockapi.io/car/name", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newTask),
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          throw new Error("Failed to create task.");
+        })
+        .then((data) => {
+          const responseMessage = document.getElementById("responseMessage");
+          responseMessage.style.display = "block";
+          responseMessage.textContent = "Task created successfully";
+          document.getElementById("errorMessage").style.display = "none";
+        })
+        .catch((error) => {
+          const errorMessage = document.getElementById("errorMessage");
+          errorMessage.style.display = "block";
+          errorMessage.textContent = "Error: " + error.message;
+          document.getElementById("responseMessage").style.display = "none";
+        });
+    });
+  </script>
+</body>
+</html>
+  

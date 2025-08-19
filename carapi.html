@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>carAPI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 10px;
+        }
+
+        #cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 300px;
+            background-color: #fff;
+        }
+
+        .card img {
+            width: 300px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .card h3 {
+            margin: 15px 0 10px;
+            font-size: 1.2em;
+        }
+
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Cars API</h1>
+    <button id="clickbutton">ClickMe!</button>
+
+    <div id="error"></div>
+    <div class="container">
+        <div id="cards">
+
+        </div>
+    </div>
+    <script>
+        document.getElementById("clickbutton").addEventListener("click", () => {
+            fetch("https://68a33ddac5a31eb7bb1f8caa.mockapi.io/car/name", {
+                method: "GET",
+                headers: { "content-type": "application/json" }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error("Failed to fetch data");
+                })
+                .then(data => {
+                    const cardContainer = document.getElementById("cards");
+                    cardContainer.innerHTML = "";
+                    data.forEach(details => {
+                        const card = `
+                        <div class="card">
+                            <img src="${details.image}" alt="${details.name}">
+                            <h3>${details.name}</h3>
+                            <p>${details.email}</p>
+                        `
+                        cardContainer.innerHTML += card;
+                    });
+                })
+        })
+
+    </script>
+</body>
+
+</html>

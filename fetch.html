@@ -22,7 +22,6 @@
         #btn:hover{
             background-color: rgba(0, 140, 255, 0.54);
         }
-
     </style>
 </head>
 <body>
@@ -36,7 +35,6 @@
             .then((image)=>{
                 document.getElementById('randomImage').src=image.message;
             })
-
             .catch((error)=>{
                 console.log("Error fetching image:", error);
                 
