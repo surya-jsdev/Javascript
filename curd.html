@@ -145,7 +145,7 @@
     function renderTasks() {
       if (tasks.length === 0) {
         noTasksMessage.style.display = "block";
-        taskTableBody.innerHTML = ""; // Clear table body
+        taskTableBody.innerHTML = "";
       } else {
         noTasksMessage.style.display = "none";
         taskTableBody.innerHTML = tasks
@@ -169,7 +169,7 @@
       }
     }
 
-    // Add or Update a Task
+    // Add or Update a Task 
     taskForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
