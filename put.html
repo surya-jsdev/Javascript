@@ -12,7 +12,9 @@
         }
 
         .conatiner{
-            max-width: 100%;
+            margin-top: 10%;
+            max-width: 50%;
+            height: 80vh;
             margin: auto;
             display: flex;
             justify-content: center;
@@ -28,7 +30,6 @@
             display: flex;
             flex-direction: column;
             width: 350px;
-             box-shadow: 0 4px 10px 10px rgba(96, 94, 94, 0.1);
         }
 
         label {
@@ -111,7 +112,7 @@
                 address:address,
             };
 
-            fetch("https://68a33ddac5a31eb7bb1f8caa.mockapi.io/car/name/9", {
+            fetch("https://68a33ddac5a31eb7bb1f8caa.mockapi.io/car/name", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify(storedata),

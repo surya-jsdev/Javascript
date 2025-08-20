@@ -91,15 +91,14 @@
 <body>
   <div class="container">
     <h2>Full CRUD Example with Alerts and Empty State</h2>
-
     <!-- Form -->
     <form id="taskForm">
       <input type="text" id="name" name="name" placeholder="Name" required />
       <input type="email" id="email" name="email" placeholder="Email" required />
       <input type="tel" id="phone" name="phone" placeholder="Phone" required />
+      <input type="text" name="address" id="address" placeholder="address" required>
       <button type="submit">Add Task</button>
     </form>
-
     <!-- Table with Horizontal Scroll -->
     <div class="table-container">
       <table>
@@ -109,11 +108,12 @@
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Address</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody id="taskTableBody">
-          <!-- Tasks will be dynamically inserted here -->
+        
         </tbody>
       </table>
       <div id="noTasksMessage" class="no-tasks">No tasks found. Add some tasks!</div>
@@ -129,9 +129,9 @@
     let isEditing = false;
     let currentTaskId = null;
 
-    // Fetch tasks from the API and render them
+   
     function fetchTasks() {
-      fetch("https://68a33ddac5a31eb7bb1f8caa.mockapi.io/car/name")
+      fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name")
         .then((res) => res.json())
         .then((data) => {
           tasks = data;
@@ -141,7 +141,7 @@
         .catch((error) => console.log("Error fetching tasks:", error));
     }
 
-    // Render tasks in the table
+  
     function renderTasks() {
       if (tasks.length === 0) {
         noTasksMessage.style.display = "block";
@@ -156,6 +156,7 @@
             <td>${task.name}</td>
             <td>${task.email}</td>
             <td>${task.phone}</td>
+            <td>${task.address}</td>
             <td>
               <div class="action-buttons">
                 <button onclick="editTask('${task.id}')">Edit</button>
@@ -169,20 +170,21 @@
       }
     }
 
-    // Add or Update a Task 
-    taskForm.addEventListener("submit", (event) => {
+   
+    taskForm.addEventListener("submit", (event) => {  
       event.preventDefault();
 
       const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
       const phone = document.getElementById("phone").value;
+      const address=document.getElementById("address").value;
 
       if (isEditing) {
-        // Update Task
-        fetch(`https://674dd350635bad45618ce6d0.mockapi.io/crud/${currentTaskId}`, {
+      
+        fetch(`https://68a582352a3deed2960dbd2c.mockapi.io/api/${currentTaskId}`, {
           method: "PUT",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ name, email, phone }),
+          body: JSON.stringify({ name, email, phone,address }),
         })
           .then((res) => res.json())
           .then((updatedTask) => {
@@ -195,11 +197,11 @@
           })
           .catch((error) => console.log("Error updating task:", error));
       } else {
-        // Add Task
-        fetch("https://674dd350635bad45618ce6d0.mockapi.io/crud", {
+    
+        fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ name, email, phone }),
+          body: JSON.stringify({ name, email, phone,address}),
         })
           .then((res) => res.json())
           .then((newTask) => {
@@ -212,7 +214,6 @@
       }
     });
 
-    // Edit a Task
     function editTask(id) {
       const task = tasks.find((t) => t.id === id);
       if (!task) return;
@@ -222,11 +223,12 @@
       document.getElementById("name").value = task.name;
       document.getElementById("email").value = task.email;
       document.getElementById("phone").value = task.phone;
+      document.getElementById("address").value=task.address;
     }
 
-    // Delete a Task
+   
     function deleteTask(id) {
-      fetch(`https://674dd350635bad45618ce6d0.mockapi.io/crud/${id}`, {
+      fetch(`https://68a582352a3deed2960dbd2c.mockapi.io/api/${id}`, {
         method: "DELETE",
       })
         .then((res) => {
@@ -236,18 +238,15 @@
             alert("Task deleted successfully.");
           }
         })
-        .catch((error) => console.log("Error deleting tl̥ask:", error));
+        .catch((error) => console.log("Error deleting task:", error));
     }
 
-    // Reset Form
     function resetForm() {
       isEditing = false;
       currentTaskId = null;
       taskForm.reset();
       submitButton.textContent = "Add Task";
     }
-
-    // Fetch tasks on page load
     fetchTasks();
   </script>
 </body>
