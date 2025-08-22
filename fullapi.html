@@ -1,197 +1,248 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        form {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-
-        form input {
-            margin: 5px;
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        form button {
-            padding: 8px 15px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        form button:hover {
-            background-color: #0056b3;
-        }
-
-        .table-container {
-            overflow-x: auto;
-            /* Enable horizontal scrolling */
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #ccc;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    form {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    form input {
+      margin: 5px;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button {
+      padding: 8px 15px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #0056b3;
+    }
+    .table-container {
+      overflow-x: auto; 
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 10px; 
+    }
+    .action-buttons button {
+      width: 70px; 
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .action-buttons button:hover {
+      background-color: #0056b3;
+    }
+    .delete-button {
+      background-color: #dc3545;
+    }
+    .delete-button:hover {
+      background-color: #c82333;
+    }
+    .no-tasks {
+      text-align: center;
+      font-size: 16px;
+      color: #888;
+      margin-top: 20px;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-        <form action="#" id="form">
-            <input type="text" id="name" name="name" placeholder="name" required>
-            <input type="text" name="email" id="email" placeholder="email" required>
-            <input type="tel" name="phone" id="phone" placeholder="phone no" required>
-            <input type="text" name="address" id="address" placeholder="address" required>
-            <button id="submit">Add task</button>
-        </form>
-        <div class="tablecontent">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>PhoneNo</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody id="tablebody">
-
-                </tbody>
-            </table>
-            <div id="noTasksMessage" class="no-tasks">No tasks found. Add some tasks!</div>
-        </div>
+  <div class="container">
+    <h2>Full CRUD Example with Alerts and Empty State</h2>
+   
+    <form id="taskForm">
+      <input type="text" id="name" name="name" placeholder="Name" required />
+      <input type="email" id="email" name="email" placeholder="Email" required />
+      <input type="tel" id="phone" name="phone" placeholder="Phone" required />
+      <input type="text" name="address" id="address" placeholder="address" required>
+      <button type="submit">Add Task</button>
+    </form>
+  
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="taskTableBody">
+        
+        </tbody>
+      </table>
+      <div id="noTasksMessage" class="no-tasks">No tasks found. Add some tasks!</div>
     </div>
-    <script>
-        let task = [];
-        const tablebody = document.getElementById("tablebody");
-        const form = document.getElementById("form");
-        const noTasksMessage = document.getElementById("noTasksMessage");
-        const button = document.getElementById("submit");
-        let isEditing = false;
-        let currentTaskId = null;
+  </div>
 
-        function fetch() {
-            fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name")
-                .then(res => res.json)
-                .then(data => {
-                    task = data;
-                    console.log(task);
-                    
-                    renderTasks();
-                    alert("Tasks loaded successfully.");
-                })
-                .catch((error) => console.log("Error fetching tasks:", error));
-        }
-        function renderTasks() {
-            if (task.length === 0) {
-                noTasksMessage.style.display = "block";
-                tablebody.innerHTML = "";
-            } else {
-                noTasksMessage.style.display = "none";
-                tablebody.innerHTML = task
-                    .map(data => `
-                <tr>
-                    <td>${data.id}</td>
-                    <td>${data.name}</td>
-                    <td>${data.email}</td>
-                    <td>${data.phone}</td>
-                    <td>${data.address}</td>
-                    <td>
-                    <div class="action-buttons">
-                    <button onclick="editTask('${task.id}')">Edit</button>
-                    <button class="delete-button" onclick="deleteTask('${task.id}')">Delete</button>
-                 </div>
-                    </td>
-                    </tr>
-                `)
-                    .join("");
-            }
-        }
-        
-            form.addEventListener("submit", event => {
-                event.preventDefault();
+  <script>
+    let tasks = [];
+    const taskTableBody = document.getElementById("taskTableBody");
+    const taskForm = document.getElementById("taskForm");
+    const noTasksMessage = document.getElementById("noTasksMessage");
+    const submitButton = taskForm.querySelector("button");
+    let isEditing = false;
+    let currentTaskId = null;
 
-                const name = document.getElementById("name").value;
-                const email = document.getElementById("email").value;
-                const phone = document.getElementById("phone").value;
-                const address = document.getElementById("address").value;
-            })
-            if (isEditing) {
-                fetch(`https://68a582352a3deed2960dbd2c.mockapi.io/api/${currentTaskId}`, {
-                    method: "PUT",
-                    headers: { "content-type": "application/json" },
-                    body: JSON.stringify({ name, email, phone, address }),
-                })
-                    .then(res => res.json())
-                    .then(update => {
-                        task = task.map(tasks => {
-                            tasks.id === update.id ? update : tasks;
-                        });
-                        renderTasks();
-                        resetform();
-                        alert("Updated Successfully")
-                    })
-                    .catch((error) => console.log("Error updating task:", error));
-            } else {
-                fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name", {
-                    method: "POST",
-                    headers: { "content-type": "application/json" },
-                    body: JSON.stringify({ name, email, phone }),
-                })
-                    .then(res => res.json())
-                    .then(newtask => {
-                        task.push(newtask);
-                        renderTasks();
-                        resetform();
-                        alert("Task added Successfully");
+   
+    function fetchTasks() {
+      fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name")
+        .then((res) => res.json())
+        .then((data) => {
+          tasks = data;
+          renderTasks();
+          alert("Tasks loaded successfully.");
+        })
+        .catch((error) => console.log("Error fetching tasks:", error));
+    }
 
-                    })
-                    .catch((error) => console.log("Error adding task:", error));
-            }
-        
-        fetch();
-    </script>
+    function renderTasks() {
+      if (tasks.length === 0){
+        noTasksMessage.style.display = "block";
+        taskTableBody.innerHTML ="";
+      } else {
+        noTasksMessage.style.display = "none";
+        taskTableBody.innerHTML = tasks
+          .map( (task) =>`
+          <tr>
+            <td>${task.id}</td>
+            <td>${task.name}</td>
+            <td>${task.email}</td>
+            <td>${task.phone}</td>
+            <td>${task.address}</td>
+            <td>
+              <div class="action-buttons">
+                <button onclick="editTask('${task.id}')">Edit</button>
+                <button class="delete-button" onclick="deleteTask('${task.id}')">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `)
+          .join("");
+      }
+    }
+    taskForm.addEventListener("submit", (event) => {  
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const address=document.getElementById("address").value;
+
+      if (isEditing) {
+      
+        fetch(`https://68a582352a3deed2960dbd2c.mockapi.io/api/${currentTaskId}`, {
+          method: "PUT",
+          headers: { "content-type": "application/json"},
+          body: JSON.stringify({ name, email, phone,address}),
+        })
+          .then((res) => res.json())
+          .then((updatedTask) => {
+            tasks = tasks.map((task) =>
+              task.id === updatedTask.id ? updatedTask : task
+            );
+            renderTasks();
+            resetForm();
+            alert("Task updated successfully.");
+          })
+          .catch((error) => console.log("Error updating task:", error));
+      } 
+      else {
+        fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ name, email, phone,address}),
+        })
+          .then((res) => res.json())
+          .then((newTask) => {
+            tasks.push(newTask);
+            renderTasks();
+            resetForm();
+            alert("Task added successfully.");
+          })
+          .catch((error) => console.log("Error adding task:", error));
+      }
+    });
+
+    function editTask(id) {
+      const task = tasks.find((t) => t.id === id);
+      if (!task) return;
+      isEditing = true;
+      currentTaskId = id;
+      submitButton.textContent = "Edit Task";
+      document.getElementById("name").value = task.name;
+      document.getElementById("email").value = task.email;
+      document.getElementById("phone").value = task.phone;
+      document.getElementById("address").value=task.address;
+    }
+    
+    function deleteTask(id) {
+      fetch(`https://68a582352a3deed2960dbd2c.mockapi.io/api/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => {
+          if (res.ok) {
+            tasks = tasks.filter((task) => task.id !== id);
+            renderTasks();
+            alert("Task deleted successfully.");
+          }
+        })
+        .catch((error) => console.log("Error deleting task:", error));
+    }
+    
+    function resetForm() {
+      isEditing = false;
+      currentTaskId = null;
+      taskForm.reset();
+      submitButton.textContent = "Add Task";
+    }
+    fetchTasks();
+  </script>
 </body>
-
 </html>
+  

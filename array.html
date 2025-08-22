@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Methods</title>
+</head>
+
+<body>
+    <h1>Array Push Method</h1>
+    <!-- <input type="text" name="inputvalue" id="inputvalue"> -->
+    <!-- <button id="additem">ADD ITEM</button> -->
+    <button id="remove">Remove</button>
+    <div id="items">
+
+    </div>
+    
+    <div id="removeditems">
+
+    </div>
+    <script>
+        const array = ["surya", "vijay", "Balaji"]
+
+        // const inputvalue = document.getElementById("inputvalue");
+        // const additem = document.getElementById("additem");
+        const items = document.getElementById("items");
+        const removeditems = document.getElementById("removeditems");
+        const remove = document.getElementById("remove");
+
+
+        items.textContent = "current Items :" + array.join(",");
+        removeditems.textContent = "none";
+
+    //     additem.addEventListener("click", () => {
+
+    //         const value = inputvalue.value.trim();
+
+    //         if (value) {
+
+    //             array.push(value);
+
+    //             inputvalue.value = "";
+
+    //             items.textContent = "current Items:" + array.join(",");
+    //         } else {
+    //             alert("Enter a vaild input");
+    //         }
+    // });
+            // remove.addEventListener("click", () => {
+
+            //     if(array.length >0){
+                     
+            //         const removeditem=array.pop();
+
+            //         items.textContent = "current Items:" + array.join(",");
+
+            //         removeditems.textContent="Removed Items:"+removeditem;
+            //     }
+
+            // });
+    </script>
+</body>
+
+</html>

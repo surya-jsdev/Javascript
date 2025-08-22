@@ -141,16 +141,14 @@
         .catch((error) => console.log("Error fetching tasks:", error));
     }
 
-  
     function renderTasks() {
-      if (tasks.length === 0) {
+      if (tasks.length === 0){
         noTasksMessage.style.display = "block";
-        taskTableBody.innerHTML = "";
+        taskTableBody.innerHTML ="";
       } else {
         noTasksMessage.style.display = "none";
         taskTableBody.innerHTML = tasks
-          .map(
-            (task) => `
+          .map( (task) =>`
           <tr>
             <td>${task.id}</td>
             <td>${task.name}</td>
@@ -164,13 +162,10 @@
               </div>
             </td>
           </tr>
-        `
-          )
+        `)
           .join("");
       }
     }
-
-   
     taskForm.addEventListener("submit", (event) => {  
       event.preventDefault();
 
@@ -183,8 +178,8 @@
       
         fetch(`https://68a582352a3deed2960dbd2c.mockapi.io/api/${currentTaskId}`, {
           method: "PUT",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ name, email, phone,address }),
+          headers: { "content-type": "application/json"},
+          body: JSON.stringify({ name, email, phone,address}),
         })
           .then((res) => res.json())
           .then((updatedTask) => {
@@ -196,8 +191,8 @@
             alert("Task updated successfully.");
           })
           .catch((error) => console.log("Error updating task:", error));
-      } else {
-    
+      } 
+      else {
         fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name", {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -240,7 +235,7 @@
         })
         .catch((error) => console.log("Error deleting task:", error));
     }
-
+    
     function resetForm() {
       isEditing = false;
       currentTaskId = null;
