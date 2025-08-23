@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            background-color: aqua;
+            height: 350px;
+        }
+
+        input::placeholder {
+            font-size: 10px;
+            padding-left: 2px;
+        }
+
+        label {
+            display: block;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        input {
+            width: 250px;
+            height: 30px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        button {
+            display: block;
+            width: 250px;
+            padding: 5px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 16px;
+            background-color: rgb(69, 252, 8);
+        }
+        #success{
+            width: 250px;
+            height: 30px;
+            text-align: center;
+            color: white;
+            background-color: rgba(56, 224, 118, 0.776);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="#" id="form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter Your name" required>
+            <label for="email">Email:</label>
+            <input type="text" id="email" placeholder="Enter Your Email" required>
+            <label for="address">Address:</label>
+            <input type="text" id="address" placeholder="Enter Your Address" required>
+            <button id="submit">Sign up</button>
+            <div id="success" style="display: none;"></div>
+            <div id="Faild" style="display: none;"></div>
+        </form>
+    </div>
+    <script>
+        document.getElementById("form").addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const address = document.getElementById("address").value;
+
+            const newitem = {
+                name: name,
+                email: email,
+                address: address,
+            };
+
+            fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(newitem),
+            })
+
+                .then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    throw new Error("Failed to create");
+                })
+                .then(data => {
+                    const success = document.getElementById("success");
+                    success.style.display = "block";
+                    success.textContent = "Sign Up SuccessFull";
+                    document.getElementById("Faild").style.display = "none";
+                    // clear input field
+                    document.getElementById("form").reset();
+                })
+                .catch(error => {
+                    const Faild = document.getElementById("Faild");
+                    Faild.style.display = "block";
+                    Faild.textContent = "Sign Up Failed" + error.message;
+                    document.getElementById("success").style.display = 'none';
+                });
+
+        });
+    </script>
+</body>
+
+</html>
