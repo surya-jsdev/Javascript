@@ -7,20 +7,18 @@
     <title>Form</title>
     <style>
         body {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
+          
             height: 100vh;
         }
 
-        .container {
+        .main-container {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
-            width: 300px;
-            background-color: aqua;
-            height: 350px;
+            gap: 10px;
+            width: 90%;
+            /* background-color: aqua; */
+            height: 100vh;
         }
 
         input::placeholder {
@@ -52,71 +50,135 @@
             font-size: 16px;
             background-color: rgb(69, 252, 8);
         }
-        #success{
+
+        #success {
             width: 250px;
             height: 30px;
             text-align: center;
             color: white;
             background-color: rgba(56, 224, 118, 0.776);
         }
+
+        .carddisplay {
+            width: 300px;
+            height: 420px;
+            background-color: aliceblue;
+            box-shadow: 2px 2px 10px rgb(118, 117, 117);
+            border-radius: 20px;
+        }
+
+        img {
+            width: 300px;
+            height: 250px;
+            border-radius: 20px;
+        }
+
+        .details {
+            margin: 0 0 0 10px;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <!-- <div class="container">
         <form action="#" id="form">
             <label for="name">Name:</label>
             <input type="text" id="name" placeholder="Enter Your name" required>
             <label for="email">Email:</label>
             <input type="text" id="email" placeholder="Enter Your Email" required>
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" placeholder="Enter Your Phone number" required>
             <label for="address">Address:</label>
             <input type="text" id="address" placeholder="Enter Your Address" required>
             <button id="submit">Sign up</button>
             <div id="success" style="display: none;"></div>
-            <div id="Faild" style="display: none;"></div>
+            <div id="Failed" style="display: none;"></div>
         </form>
+    </div> -->
+    <div>
+        <h2 style="margin: 0;">Card container</h2><br>
+        <button id="submit" style="margin: 0 0 20px;">View Customer Details</button>
+    </div>
+    <div class="main-container" id="container">
+
     </div>
     <script>
-        document.getElementById("form").addEventListener("submit", (event) => {
-            event.preventDefault();
+        // document.getElementById("form").addEventListener("submit", (event) => {
+        //     event.preventDefault();
 
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const address = document.getElementById("address").value;
+        //     const name = document.getElementById("name").value;
+        //     const email = document.getElementById("email").value;
+        //     const phone = document.getElementById("phone").value;
+        //     const address = document.getElementById("address").value;
 
-            const newitem = {
-                name: name,
-                email: email,
-                address: address,
-            };
+        //     const newitem = {
+        //         name: name,
+        //         email: email,
+        //         phone: phone,
+        //         address: address,
+        //     };
 
-            fetch("https://68a582352a3deed2960dbd2c.mockapi.io/api/name", {
-                method: "POST",
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify(newitem),
+        //     fetch("https://68a582352a3deed2960dbd2c.mockapi.io/form/name", {
+        //         method: "POST",
+        //         headers: { "content-type": "application/json" },
+        //         body: JSON.stringify(newitem),
+        //     })
+
+        //         .then(res => {
+        //             if (res.ok) {
+        //                 return res.json();
+        //             }
+        //             throw new Error("Failed to create");
+        //         })
+        //         .then(data => {
+        //             const success = document.getElementById("success");
+        //             success.style.display = "block";
+        //               success.textContent = "Sign Up SuccessFull";
+        //             document.getElementById("Failed").style.display = "none";
+        //             // clear input field
+        //             document.getElementById("form").reset();
+        //         })
+        //         .catch(error => {
+        //             const Failed = document.getElementById("Failed");
+        //             Faild.style.display = "block";
+        //             Faild.textContent = "Sign Up Failed" + error.message;
+        //             document.getElementById("success").style.display = 'none';
+        //         });
+
+        // });
+
+        document.getElementById("submit").addEventListener("click", () => {
+            fetch("https://68a582352a3deed2960dbd2c.mockapi.io/form/name", {
+                method: "GET",
+                headers: { "content-type": "application/json" }
             })
-
-                .then(res => {
-                    if (res.ok) {
-                        return res.json();
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
                     }
-                    throw new Error("Failed to create");
+                    throw new Error("Failed to fetch data.")
                 })
-                .then(data => {
-                    const success = document.getElementById("success");
-                    success.style.display = "block";
-                    success.textContent = "Sign Up SuccessFull";
-                    document.getElementById("Faild").style.display = "none";
-                    // clear input field
-                    document.getElementById("form").reset();
+                .then((data) => {
+                    const card = document.getElementById("container");
+                    card.innerHTML = "";
+                    data.forEach((item) => {
+                        const cards = `
+                    <div class=carddisplay>
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class=details>
+                        <h3>${item.name}</h3>
+                        <p>${item.email}</p>
+                        <p>${item.phone}</p>
+                        <p>${item.address}</p>
+                        </div>
+                        </div>
+                    `;
+                        card.innerHTML += cards;
+                    });
                 })
-                .catch(error => {
-                    const Faild = document.getElementById("Faild");
-                    Faild.style.display = "block";
-                    Faild.textContent = "Sign Up Failed" + error.message;
-                    document.getElementById("success").style.display = 'none';
+                .catch((error) => {
+                    alert(error.message);
                 });
-
         });
     </script>
 </body>
