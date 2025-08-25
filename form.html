@@ -7,7 +7,7 @@
     <title>Form</title>
     <style>
         body {
-          
+
             height: 100vh;
         }
 
@@ -80,7 +80,7 @@
 </head>
 
 <body>
-    <!-- <div class="container">
+    <!-- <div class="container-01">
         <form action="#" id="form">
             <label for="name">Name:</label>
             <input type="text" id="name" placeholder="Enter Your name" required>
@@ -103,7 +103,7 @@
 
     </div>
     <script>
-        // document.getElementById("form").addEventListener("submit", (event) => {
+        //         document.getElementById("form").addEventListener("submit", (event) => {
         //     event.preventDefault();
 
         //     const name = document.getElementById("name").value;
@@ -135,7 +135,7 @@
         //             success.style.display = "block";
         //               success.textContent = "Sign Up SuccessFull";
         //             document.getElementById("Failed").style.display = "none";
-        //             // clear input field
+        //     // clear input field
         //             document.getElementById("form").reset();
         //         })
         //         .catch(error => {
@@ -163,16 +163,15 @@
                     card.innerHTML = "";
                     data.forEach((item) => {
                         const cards = `
-                    <div class=carddisplay>
-                        <img src="${item.image}" alt="${item.name}">
+                <div class="carddisplay">
+                     <img src="${item.image}" alt="${item.name}">
                         <div class=details>
                         <h3>${item.name}</h3>
                         <p>${item.email}</p>
                         <p>${item.phone}</p>
                         <p>${item.address}</p>
                         </div>
-                        </div>
-                    `;
+                    </div> `;
                         card.innerHTML += cards;
                     });
                 })
@@ -182,5 +181,4 @@
         });
     </script>
 </body>
-
 </html>

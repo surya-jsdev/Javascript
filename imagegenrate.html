@@ -19,7 +19,6 @@
                 .then((res) => res.json())
                 .then(data => {
                     document.getElementById("img").src = data.message;
-
                 })
                 .catch(error => {
                     console.log("Failed to fetch data", error);
