@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async Await Example</title>
 </head>
 <body>
-    
+  <h2>User List</h2>
+  <button id="loadUsers">Load Users</button>
+  <ul id="userList"></ul>
+
+  <script >
+    // Function to fetch users from API
+async function fetchUsers() {
+  try {
+    // fetch data
+    let response = await fetch("https://68a582352a3deed2960dbd2c.mockapi.io/form/name");
+    // convert response into JSON
+    let users = await response.json();
+
+    // select ul element
+    let userList = document.getElementById("userList");
+    userList.innerHTML = ""; // clear old data
+
+    // display users in list
+    users.forEach(user => {
+      let li = document.createElement("li");
+      li.style.color="red";
+      li.style.fontSize="20px"
+      li.textContent = `${user.name} - ${user.email} -${user.phone}`;
+      userList.appendChild(li);
+    });
+
+  } catch (error) {
+    console.log("Error fetching users:", error);
+  }
+}
+
+// add event listener to button
+document.getElementById("loadUsers").addEventListener("click", fetchUsers);
+
+  </script>
 </body>
 </html>
