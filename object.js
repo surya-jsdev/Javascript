@@ -18,7 +18,24 @@
 // // console.log(student.phonenumber);
  
 
-const fruits=["apple","orange","Banana","Watermelon"]
-console.log(fruits[2]);
 
+function calculateAge(birthDateString) {
+  // Convert input string to Date object
+  const birthDate = new Date(birthDateString);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  const dayDiff = today.getDate() - birthDate.getDate();
+
+  // If birthday hasn't happened yet this year, reduce age by 1
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+
+  return age;
+}
+
+// Example usage
+console.log(calculateAge("2001-09-18")); // 👉 will return age
 

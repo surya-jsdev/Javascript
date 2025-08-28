@@ -204,8 +204,7 @@
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ name, email, phone, address }),
         })
-          .then((res) => res.json())
-          .then((updatedTask) => {
+          .then((res) => res.json(),(updatedTask) => {
             tasks = tasks.map((task) =>
               task.id === updatedTask.id ? updatedTask : task
             );
@@ -244,7 +243,7 @@
       document.getElementById("address").value = task.address;
     }
 
-    function deleteTask(id) {
+    function deleteTask(id){
       fetch(`https://68a582352a3deed2960dbd2c.mockapi.io/form/name${id}`, {
         method: "DELETE",
       })

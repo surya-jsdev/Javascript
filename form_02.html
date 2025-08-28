@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            margin: 0;
+            padding: 0;
+        }
+        div {
+             display: flex;
+            flex-wrap: wrap;
+            gap: 10px 
+        }
+        img {
+            width: 250px;
+            height: 250px;
+        }
+        .card-1{
+            width: 280px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Image Loaded</h1>
+    <div id="container">
+
+    </div>
+     <button id="submit">Click</button>
+    <form action="#" id="form">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email" required>
+        <label for="image">Upload image:</label>
+        <input type="file" name="image" id="image">
+        <button id="click">Submit</button>
+         <div id="success"></div>
+        <div id="failed"></div>
+    </form>
+   
+    <script>
+        document.getElementById("submit").addEventListener("click", () => {
+            fetch("https://68a582352a3deed2960dbd2c.mockapi.io/form/name", {
+                method: "GET",
+                headers: { "content-type": "application/json" }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                })
+                .then(data => {
+                    const card = document.getElementById("container");
+                    card.innerHTML = "";
+                    data.forEach(item => {
+                        const cards = `
+                        <div class="card-1">
+                        <img src="${item.image}">
+                        <p>${item.name}</p>
+                        <p>${item.email}</p>
+                        </div>
+                    `;
+                        card.innerHTML += cards;
+                    });
+
+
+                })
+
+        })
+
+        document.getElementById("form").addEventListener("submit",(event)=>{
+            event.preventDefault();
+
+            const name=document.getElementById("name").value;
+            const email=document.getElementById("email").value;
+            const image=document.getElementById("image").value;
+
+            fetch("https://68a582352a3deed2960dbd2c.mockapi.io/form/name",{
+                method:"POST",
+                headers:{"content-type":"application/json"},
+                body:JSON.stringify({name,email,image}),
+            })
+            .then((response) =>{
+                if(response.ok){
+                    return response.json();
+                }
+                throw new Error("Failed to Create.")
+            })
+            .then((data) =>{
+                const success=document.getElementById("success");
+                success.style.display="block";
+                success.textContent="SuccessFull Created";
+                document.getElementById("failed").style.display="none"
+                document.getElementById("form").reset()
+            })
+            .catch(error =>{
+                const failed =document.getElementById("failed");
+                failed.style.display="block";
+                failed.textContent="Failed to Create";
+             document.getElementById("success").style.display="none"
+            })
+        })
+    </script>
+
+</body>
+
+</html>
