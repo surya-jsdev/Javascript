@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+            gap:15px;
+            justify-content: center;
+            background-color: aqua;
+            width: 80%;
+            height: auto;
+        }
+
+        img {
+            width: 250px;
+            height: 200px;
+        }
+        .para{
+            width: 300px;
+            height: 100px;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="img">Image</button>
+    <button id="details">Details</button>
+    <div id="container"></div>
+    <script>
+        const API_URL = "https://68a582352a3deed2960dbd2c.mockapi.io/form/name";
+        const container = document.getElementById("container");
+
+        function fetchData() {
+            return fetch(API_URL, {
+                method: "GET",
+                headers: { "content-type": "application/json" },
+            })
+            .then(res => res.ok ? res.json() : Promise.reject("Fetch failed"));
+        }
+
+        function renderImages(data) {
+            container.innerHTML = data.map(item => `
+                <div>
+                    <img src="${item.image}" alt="Image">
+                </div>
+            `).join('');
+        }
+
+        function renderDetails(data) {
+            container.innerHTML = data.map(item => `
+                <div class="para">
+                    <p>${item.name}</p>
+                    <p>${item.email}</p>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById("img").addEventListener("click", () => {
+            fetchData().then(renderImages);
+        });
+
+        document.getElementById("details").addEventListener("click", () => {
+            fetchData().then(renderDetails);
+        });
+    </script>
+</body>
+
+</html>
