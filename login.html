@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Popup Login Form</title>
   <style>
     /* Popup overlay */
-.popup {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  justify-content: center;
-  align-items: center;
-}
+    .popup {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
 
-/* Popup content box */
-.popup-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-  text-align: center;
-  position: relative;
-}
+    /* Popup content box */
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+      position: relative;
+    }
 
-/* Close button */
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
+    /* Close button */
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
   </style>
   <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
+
 <body>
   <!-- Login Button -->
   <button id="loginBtn">Login</button>
@@ -69,33 +71,34 @@
     </div>
   </div>
 
-  <script >
+  <script>
 
-const loginBtn = document.getElementById("loginBtn");
-const signbtn=document.getElementById("signbtn")
-const loginPopup = document.getElementById("loginPopup");
-const signPopup=document.getElementById("signPopup")
-const closeBtn = document.getElementById("closeBtn");
+    const loginBtn = document.getElementById("loginBtn");
+    const signbtn = document.getElementById("signbtn")
+    const loginPopup = document.getElementById("loginPopup");
+    const signPopup = document.getElementById("signPopup")
+    const closeBtn = document.getElementById("closeBtn");
 
-loginBtn.addEventListener("click", () => {
-  loginPopup.style.display = "flex";
-});
-signbtn.addEventListener("click", () => {
-  signPopup.style.display = "flex";
-});
-
-
-closeBtn.addEventListener("click", () => {
-  loginPopup.style.display = "none";
-});
+    loginBtn.addEventListener("click", () => {
+      loginPopup.style.display = "flex";
+    });
+    signbtn.addEventListener("click", () => {
+      signPopup.style.display = "flex";
+    });
 
 
-// window.addEventListener("click", (e) => {
-//   if (e.target === loginPopup) {
-//     loginPopup.style.display = "none";
-//   }
-// });
+    closeBtn.addEventListener("click", () => {
+      loginPopup.style.display = "none";
+    });
+
+
+    window.addEventListener("click", (e) => {
+      if (e.target === loginPopup) {
+        loginPopup.style.display = "none";
+      }
+    });
 
   </script>
 </body>
+
 </html>

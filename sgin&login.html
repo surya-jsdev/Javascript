@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #loginPopup {
+            display: flex;
+            /* justify-content: center; */
+            flex-direction: column;
+            margin-top: 20px;
+            background-color: antiquewhite;
+            width: 350px;
+            height: 300px;
+        }
+
+        form {
+            margin: 0 auto;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+        }
+
+        #Login {
+            display: block;
+            margin-top: 20px;
+        }
+
+        #signup {
+            width: 350px;
+            display: none;
+        }
+
+        #submit {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(11, 240, 7);
+            border: none;
+            color: white;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="newuser">New User</button>
+    <button id="login">Login</button>
+    <button id="delete">Delete</button>
+    <div id="loginPopup" style="display: none;">
+        <div>
+            <h3>LOGIN FORM</h3>
+            <button id="closelogin" class="close">&times;</button>
+        </div>
+        <form action="#" id="loginform">
+            <label for="name">Username:</label>
+            <input type="text" name="name" id="name">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password">
+            <button id="Login">Login</button>
+            <div id="success"></div>
+            <div id="failed"></div>
+        </form>
+    </div>
+    <div id="signup">
+        <div>
+            <h3>SIGN UP</h3>
+            <button id="closeBtn" class="close">&times;</button>
+        </div>
+        <form action="#" id="sign">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="username">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="newpassword">
+            <button id="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+
+        login.addEventListener("click", () => {
+            loginPopup.style.display = "block"
+            signup.style.display = "none"
+
+        });
+        newuser.addEventListener("click", () => {
+            closeBtn.style.display = "block"
+            signup.style.display = "block"
+            loginPopup.style.display = "none"
+
+        });
+        closeBtn.addEventListener("click", () => {
+            signup.style.display = "none"
+        });
+        closelogin.addEventListener("click", () => {
+            loginPopup.style.display = "none"
+        })
+
+        document.getElementById("submit").addEventListener("click", () => {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const newpass = document.getElementById("newpassword").value;
+
+            const newtask = {
+                username: username,
+                email: email,
+                newpass: newpass,
+            };
+            fetch("https://68a582352a3deed2960dbd2c.mockapi.io/form/name", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(newtask),
+            })
+                .then(res => {
+                    res.json();
+                })
+                .then(data => {
+                    alert("User added successfully!");
+                })
+                .catch(error => {
+                    alert("Failed to create user.");
+                });
+            document.getElementById("sign").reset();
+
+        });
+
+        document.getElementById("Login").addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+
+            fetch("https://68a582352a3deed2960dbd2c.mockapi.io/form/name", {
+                method: "GET",
+                headers: { "content-type": "application/json" }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error("Failed to fetch users");
+                })
+                .then(users => {
+                    const user = users.find(
+                        u => (u.username === username || u.name === username) && (u.newpass === password || u.password === password)
+                    );
+                    if (user) {
+                        document.getElementById("success").textContent = "Login successful!";
+                        document.getElementById("failed").textContent = "";
+                    } else {
+                        document.getElementById("failed").textContent = "Invalid username or password.";
+                        document.getElementById("success").textContent = "";
+                    }
+                    document.getElementById("loginform").reset();
+                })
+                .catch(error => {
+                    document.getElementById("failed").textContent = "Login failed. Please try again.";
+                    document.getElementById("success").textContent = "";
+                });
+        });
+
+    </script>
+</body>
+
+</html>
