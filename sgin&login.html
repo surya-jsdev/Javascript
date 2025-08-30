@@ -6,18 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #loginPopup {
+        /* .container {
+            width: 100%;
+            height: 100vh;
             display: flex;
-            /* justify-content: center; */
+            display: none;
+            justify-content: center;
+            align-items: center;
+        } */
+
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            position: relative;
+        }
+
+        #loginPopup {
+            position: fixed;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            background-color: rgba(71, 70, 70, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #signup {
+            position: fixed;
+            display: flex;
             flex-direction: column;
             margin-top: 20px;
-            background-color: antiquewhite;
+            background-color: rgb(218, 126, 6);
             width: 350px;
-            height: 300px;
+            height: 340px;
         }
 
         form {
+            width: 300px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
             margin: 0 auto;
+            background-color: antiquewhite;
+        }
+
+        input {
+            width: 150px;
+            margin-left: 10px;
         }
 
         h3 {
@@ -26,6 +66,7 @@
 
         label {
             display: block;
+            padding: 8px;
         }
 
         #Login {
@@ -46,32 +87,90 @@
             color: white;
             padding: 5px;
         }
+
+        #Login {
+            width: 150px;
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(11, 240, 7);
+            border: none;
+            color: white;
+            margin-left: 10px;
+            padding: 5px;
+        }
+
+        span {
+            position: absolute;
+            right: 10%;
+            top: 20px;
+            z-index: 10;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #submit {
+            width: 150px;
+            margin-left: 20px;
+        }
+
+        #newuser {
+            background-color: rgb(47, 2, 227);
+            padding: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+
+        }
+
+        #login {
+            background-color: rgb(9, 222, 9);
+            padding: 5px;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            font-size: 12px;
+            font-weight: 600;
+
+        }
+
+        .home {
+            background-image: url("E:\Javascript-01\Javascript\footwear.jpg");
+            background-size: cover;
+            width: 100%;
+            height: 80%;
+        }
     </style>
 </head>
 
 <body>
-    <button id="newuser">New User</button>
-    <button id="login">Login</button>
-    <button id="delete">Delete</button>
-    <div id="loginPopup" style="display: none;">
-        <div>
-            <h3>LOGIN FORM</h3>
-            <button id="closelogin" class="close">&times;</button>
+    <nav>
+        <button id="newuser">New User</button>
+        <button id="login">Login</button>
+    </nav>
+
+    <div id="loginPopup" style="display:none;">
+        <div class="popcontent">
+            <div>
+                <h3>LOGIN FORM</h3>
+                <span id="closelogin" class="close">&times;</span>
+            </div>
+            <form action="#" id="loginform">
+                <label for="name">Username:</label>
+                <input type="text" name="name" id="name">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+                <button id="Login">Login</button>
+                <div id="success"></div>
+                <div id="failed"></div>
+            </form>
         </div>
-        <form action="#" id="loginform">
-            <label for="name">Username:</label>
-            <input type="text" name="name" id="name">
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
-            <button id="Login">Login</button>
-            <div id="success"></div>
-            <div id="failed"></div>
-        </form>
     </div>
     <div id="signup">
         <div>
             <h3>SIGN UP</h3>
-            <button id="closeBtn" class="close">&times;</button>
+            <span id="closeBtn" class="close">&times;</span>
         </div>
         <form action="#" id="sign">
             <label for="name">Name:</label>
@@ -83,6 +182,12 @@
             <button id="submit">Submit</button>
         </form>
     </div>
+
+    <section>
+        <div class="home">
+            <img src="footwear.jpg" alt="" style="width: 100%; height: 50%; ">
+        </div>
+    </section>
     <script>
 
         login.addEventListener("click", () => {
@@ -105,6 +210,7 @@
 
         document.getElementById("submit").addEventListener("click", () => {
             event.preventDefault();
+
             const username = document.getElementById("username").value;
             const email = document.getElementById("email").value;
             const newpass = document.getElementById("newpassword").value;
@@ -114,6 +220,7 @@
                 email: email,
                 newpass: newpass,
             };
+
             fetch("https://68a582352a3deed2960dbd2c.mockapi.io/form/name", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
@@ -132,7 +239,7 @@
 
         });
 
-        document.getElementById("Login").addEventListener("click", function (event) {
+        document.getElementById("Login").addEventListener("click", (event) => {
             event.preventDefault();
 
             const username = document.getElementById("name").value;
@@ -155,16 +262,21 @@
                     if (user) {
                         document.getElementById("success").textContent = "Login successful!";
                         document.getElementById("failed").textContent = "";
+                        loginPopup.style.display = "none"
+                      
                     } else {
                         document.getElementById("failed").textContent = "Invalid username or password.";
                         document.getElementById("success").textContent = "";
                     }
                     document.getElementById("loginform").reset();
+
                 })
                 .catch(error => {
                     document.getElementById("failed").textContent = "Login failed. Please try again.";
                     document.getElementById("success").textContent = "";
                 });
+
+
         });
 
     </script>
