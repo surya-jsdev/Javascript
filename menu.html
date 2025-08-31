@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: black;
+        }
+
+        a {
+            text-decoration: none;
+             color: white;
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+        }
+
+        #icon {
+            display: none;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+        #close{
+            display: none;
+        }
+
+        @media (max-width:768px) {
+            
+            #icon {
+                display: block;
+                cursor: pointer;
+            }
+
+            ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 25px;
+                left: 0;
+                box-shadow: 0 2px 8px rgba(208, 17, 17, 0.1);
+                width: 200px;
+                background-color: rgb(5, 5, 87);
+                height: 100vh;
+              
+            }
+
+            ul.active {
+                display: flex;
+            }
+
+            nav {
+                position: relative;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        
+        <ul id="menu">
+            <li><a href="">Home</a></li>
+            <li><a href="">Product</a></li>
+            <li><a href="">About</a></li>
+        </ul>
+    </nav>
+    <i class="fa-solid fa-bars" id="icon"></i>
+        <!-- <i class="fa-solid fa-xmark" id="close"></i> -->
+    <script>
+        const icon = document.getElementById("icon");
+        const close=document.getElementById("close")
+        const menu = document.getElementById("menu");
+        icon.addEventListener("click", () => {
+            menu.classList.toggle("active");
+        });
+        
+    </script>
+</body>
+
+</html>
