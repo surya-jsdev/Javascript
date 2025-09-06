@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            width: 80%;
+            border-collapse: collapse;
+        }
+        th,td{
+            border:1px solid black;
+        }
+        
+        label,input{
+            padding: 5px;
+        }
+        .no-tasks{
+            text-align: center;
+            padding: 10px;
+        }
+        td{
+          
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Full Crud Operation</h2>
+        <button id="load" onclick="fetchdata()">Load</button>
+        <form action="" id="task-form">
+            <input type="text" name="name" id="name" placeholder="Name" required>
+            <input type="email" name="email" id="email" placeholder="email" required>
+            <input type="tel" name="phone" id="phone" placeholder="phone" required>
+            <input type="text" name="address" id="address" placeholder="Address" required>
+            <button type="submit" id="submit">Add Task</button>
+        </form>
+        <!-- table -->
+        <table id="table-container">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="taskbody">
+
+            </tbody>
+        </table>
+        <div id="noTasksMessage" class="no-tasks">
+            No tasks found. Add some tasks!
+        </div>
+    </div>
+    <script src="demo.js">
+
+    </script>
+</body>
+
+</html>
